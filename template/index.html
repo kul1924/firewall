@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple WAF - Web Application Firewall</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Dark mode styles */
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+        .container {
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+        }
+        h1 {
+            color: #fff;
+        }
+        .form-control {
+            background-color: #333;
+            color: #fff;
+            border: 1px solid #444;
+        }
+        .form-control:focus {
+            background-color: #444;
+            border-color: #009688;
+            color: #fff;
+        }
+        .btn-primary {
+            background-color: #009688;
+            border-color: #009688;
+        }
+        .btn-primary:hover {
+            background-color: #00796b;
+            border-color: #00796b;
+        }
+        .alert {
+            border-radius: 5px;
+        }
+        .btn-link {
+            color: #009688;
+        }
+        .btn-link:hover {
+            text-decoration: underline;
+        }
+        /* Centering the content */
+        .d-flex-center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+    </style>
+</head>
+<body>
+    <div class="d-flex-center">
+        <div class="container">
+            <h1>Web Application Firewall</h1>
+
+            <!-- Flash messages for feedback -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="alert alert-{{ messages[0][0] }}">
+                        {{ messages[0][1] }}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            <form method="POST" action="/">
+                <div class="form-group">
+                    <label for="http_request">Enter HTTP Request:</label>
+                    <input type="text" class="form-control" id="http_request" name="http_request" placeholder="HTTP Request">
+                </div>
+                <button type="submit" class="btn btn-primary">Check Request</button>
+            </form>
+
+            <a href="{{ url_for('view_log') }}" class="btn btn-link mt-3">View Malicious Requests Log</a>
+        </div>
+    </div>
+</body>
+</html>
